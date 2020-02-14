@@ -10,12 +10,13 @@ parser = argparse.ArgumentParser(description='Hyper-opt settings')
 parser.add_argument('--n_iters', type=int, default=5,
                     help='number of independent gym runs to get a mean for set of hyper parameters')
 parser.add_argument('--algo', default='sarsamax', help='algo to asses (sarsa, sarsamax, exp_sarsa)')
+parser.add_argument('--taxi_version', default='v2', help='algo to asses (sarsa, sarsamax, exp_sarsa)')
 
 c_args = parser.parse_args()
 
 
 def objective(args):
-    env = gym.make('Taxi-v2')
+    env = gym.make(f'Taxi-{c_args.taxi_version}')
 
     best_scores = []
     for i in range(c_args.n_iters):
