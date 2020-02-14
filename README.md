@@ -23,5 +23,34 @@ To run hyper parameters optimization you can use
 python hyper_opt.py --taxi_version v3
 ```
 
-## SarsaMax optimal performance
-## ExpectedSarsa optimal performance
+## Best score results
+I've obtained following best runs (best out of 10):
+
+| Env        | Sarsa Max     | Expecation Sarsa  |
+| ---------- |:-------------:| -----:|
+| Taxi-V2    | 9.49          | 9.44  |
+| Taxi-V3    | 9.07          | 8.8   |
+
+
+In Taxi-V2 version Sarsa Max outperformed Exp. Sarsa in 30% of cases (10 runs) - not enough for any conclusions.
+In Taxi-V3 version Sarsa Max outperformed Exp. Sarsa in 60% of cases (10 runs) - not enough for any conclusions.
+
+It would be nice if someone could run this until statistically meaningful difference p-value or t-criterion is found.
+
+## Online performance
+
+| Taxi-V2             |  Taxi-V3 |
+:-------------------------:|:-------------------------:
+![](images/tax1v2.png)  |  ![](images/tax1v3.png)
+
+Sarsa Max gets worse online performance but still converges to the same policy as Expected Sarsa.
+
+## Notes
+### Used pseudocode
+[](images/pseudocode.png) 
+
+### SarsaMax/ExpectedSarsa optimal hyperparameters
+
+optimal_sarsa_max = {'algorithm': 'sarsamax','alpha': 0.2512238484351891, 'epsilon_cut': 0, 'epsilon_decay': 0.8888782926665223, 'start_epsilon': 0.9957089031634627, 'gamma': 0.7749915552696941}
+optimal_exp_sarsa = {'algorithm': 'exp_sarsa', 'alpha': 0.2946281065178629, 'epsilon_cut': 0, 'epsilon_decay': 0.8978159313202051, 'start_epsilon': 0.9803552534195048, 'gamma': 0.6673937505783256}
+
