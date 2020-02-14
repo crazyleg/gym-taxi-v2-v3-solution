@@ -16,9 +16,8 @@ class Agent:
         """
 
         algos = {
-            'sarsa': None,
-            'sarsamax': self.step_sarmamax,
-            'exp_sarsa': None
+            'sarsamax': self.step_sarsamax,
+            'exp_sarsa': self.step_exp_sarsa
         }
 
         self.step = algos[algorithm]
@@ -33,7 +32,36 @@ class Agent:
         else:  # otherwise, select an action randomly
             return random.randint(0, 5)
 
-    def step_sarmamax(self, state, action, reward, next_state, done):
+    def get_probs(self, Q_s, epsilon, nA):
+        """ obtains the action probabilities corresponding to epsilon-greedy policy """
+        policy_s = np.ones(nA) * epsilon / nA
+        best_a = np.argmax(Q_s)
+        policy_s[best_a] = 1 - epsilon + (epsilon / nA)
+        return policy_s
+
+    def step_exp_sarsa(self, state, action, reward, next_state, done):
+        """ Update the agent's knowledge, using the most recently sampled tuple.
+
+        Params
+        ======
+        - state: the previous state of the environment
+        - action: the agent's previous choice of action
+        - reward: last reward received
+        - next_state: the current state of the environment
+        - done: whether the episode is complete (True or False)
+        """
+        if not done:
+            probs = self.get_probs(self.Q[next_state], self.epsilon, self.nA)
+
+            self.Q[state][action] += self.alpha * (
+                        reward + self.gamma * np.dot(probs, self.Q[next_state]) - self.Q[state][action])
+        else:
+            self.Q[state][action] += self.alpha * (reward - self.Q[state][action])
+            self.epsilon = self.epsilon * self.epsilon_decay
+            if self.epsilon_cut is not None:
+                self.epsilon = max(self.epsilon, self.epsilon_cut)
+
+    def step_sarsamax(self, state, action, reward, next_state, done):
         """ Update the agent's knowledge, using the most recently sampled tuple.
 
         Params
