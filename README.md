@@ -62,7 +62,8 @@ Run in jupyter: run_analysis_taxiv2.ipynb and run_analysis_taxiv3.ipynb
 
 ## Notes
 ### Used pseudocode
-[](images/pseudocode.png) 
+
+![](images/pseudocode.png) 
 
 ### SarsaMax/ExpectedSarsa optimal hyperparameters
 
