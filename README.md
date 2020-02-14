@@ -45,6 +45,21 @@ It would be nice if someone could run this until statistically meaningful differ
 
 Sarsa Max gets worse online performance but still converges to the same policy as Expected Sarsa.
 
+## How to run 
+
+#### To see online training
+```bash
+python main.py 
+```
+
+#### To tune hyperparameters
+```bash
+python hyper_opt.py --n_iters 5 --algo sarsamax --taxi_version v2
+```
+
+#### Verify results
+Run in jupyter: run_analysis_taxiv2.ipynb and run_analysis_taxiv3.ipynb
+
 ## Notes
 ### Used pseudocode
 [](images/pseudocode.png) 
