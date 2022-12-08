@@ -1,4 +1,4 @@
-certifi==2019.11.28
+certifi==2022.12.7
 cloudpickle==1.2.2
 decorator==4.4.1
 future==0.18.2
